@@ -2808,7 +2808,7 @@ GameObject:
   - 33: {fileID: 294104133}
   - 23: {fileID: 294104132}
   m_Layer: 8
-  m_Name: vehicle_skyCar_body_paintwork
+  m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7762,7 +7762,7 @@ GameObject:
   - 33: {fileID: 1373707731}
   - 23: {fileID: 1373707730}
   m_Layer: 8
-  m_Name: vehicle_skyCar_mudGuard_frontRight
+  m_Name: Mudguard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10702,7 +10702,7 @@ GameObject:
   - 33: {fileID: 2039325482}
   - 23: {fileID: 2039325481}
   m_Layer: 8
-  m_Name: vehicle_skyCar_mudGuard_frontLeft
+  m_Name: Mudguard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11114,6 +11114,9 @@ MonoBehaviour:
   CongratsText: {fileID: 1908640241}
   ADValue: {fileID: 520216374}
   GamePaused: 0
+  CarBody: {fileID: 294104130}
+  Mudguard1: {fileID: 2039325478}
+  Mudguard2: {fileID: 1373707727}
 --- !u!4 &2082304304
 Transform:
   m_ObjectHideFlags: 0

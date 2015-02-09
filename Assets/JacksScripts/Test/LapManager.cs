@@ -35,30 +35,27 @@ public class LapManager : MonoBehaviour {
 
 		if(Application.loadedLevelName == "TestTrack")
 		{
-			if(PlayerPrefs.GetFloat(CM_Script.CarName + "BestTime_AllStarSlog") == 0)
+			if(PlayerPrefs.GetFloat(CM_Script.CarName + "BestAllStarTime") == 0)
 			{
 				BestTimeText.text = "Best Time: --:--";
 			}
 			else
 			{
-				BestTimeText.text = "Best Time: " + PlayerPrefs.GetFloat(CM_Script.CarName + "BestTime_AllStarSlog").ToString("F2");
+				BestTimeText.text = "Best Time: " + PlayerPrefs.GetFloat(CM_Script.CarName + "BestAllStarTime").ToString("F2");
 			}
 		}
 
 		if(Application.loadedLevelName == "BigTrack")
 		{
-			if(PlayerPrefs.GetFloat(CM_Script.CarName + "BestTime_Figureof8") == 0)
+			if(PlayerPrefs.GetFloat(CM_Script.CarName + "BestFigureof8Time") == 0)
 			{
 				BestTimeText.text = "Best Time: --:--";
 			}
 			else
 			{
-				BestTimeText.text = "Best Time: " + PlayerPrefs.GetFloat(CM_Script.CarName + "BestTime_Figureof8").ToString("F2");
+				BestTimeText.text = "Best Time: " + PlayerPrefs.GetFloat(CM_Script.CarName + "BestFigureof8Time").ToString("F2");
 			}
 		}
-
-
-
 	}
 	
 	// Update is called once per frame
@@ -117,18 +114,18 @@ public class LapManager : MonoBehaviour {
 			{
 				if(Application.loadedLevelName == "TestTrack")
 				{
-					if(PlayerPrefs.GetFloat(CM_Script.CarName + "BestTime_AllStarSlog") == 0 || OverallTime < PlayerPrefs.GetFloat(CM_Script.CarName + "BestTime_AllStarSlog"))
+					if(PlayerPrefs.GetFloat(CM_Script.CarName + "BestAllStarTime") == 0 || OverallTime < PlayerPrefs.GetFloat(CM_Script.CarName + "BestAllStarTime"))
 					{
-						PlayerPrefs.SetFloat(CM_Script.CarName + "BestTime_AllStarSlog", OverallTime);
+						PlayerPrefs.SetFloat(CM_Script.CarName + "BestAllStarTime", OverallTime);
 						BestTimeText.text = "Best Time: " + OverallTime.ToString("F2");
 					}
 				}
 
 				if(Application.loadedLevelName == "BigTrack")
 				{
-					if(PlayerPrefs.GetFloat(CM_Script.CarName + "BestTime_Figureof8") == 0 || OverallTime < PlayerPrefs.GetFloat(CM_Script.CarName + "BestTime_Figureof8"))
+					if(PlayerPrefs.GetFloat(CM_Script.CarName + "BestFigureof8Time") == 0 || OverallTime < PlayerPrefs.GetFloat(CM_Script.CarName + "BestFigureof8Time"))
 					{
-						PlayerPrefs.SetFloat(CM_Script.CarName + "BestTime_Figureof8", OverallTime);
+						PlayerPrefs.SetFloat(CM_Script.CarName + "BestFigureof8Time", OverallTime);
 						BestTimeText.text = "Best Time: " + OverallTime.ToString("F2");
 					}
 				}

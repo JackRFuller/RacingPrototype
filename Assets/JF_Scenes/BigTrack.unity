@@ -8416,7 +8416,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1545077514}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -.75999999}
+  m_LocalPosition: {x: 0, y: 0, z: -.699999988}
   m_LocalScale: {x: .328042537, y: .328042537, z: .328042537}
   m_Children:
   - {fileID: 1474416326}
@@ -11186,6 +11186,9 @@ MonoBehaviour:
   CongratsText: {fileID: 1908640241}
   ADValue: {fileID: 520216374}
   GamePaused: 0
+  CarBody: {fileID: 1677262957}
+  Mudguard1: {fileID: 2039325478}
+  Mudguard2: {fileID: 1373707727}
 --- !u!4 &2082304304
 Transform:
   m_ObjectHideFlags: 0

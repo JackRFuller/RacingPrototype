@@ -28,19 +28,33 @@ public class ResetManager : MonoBehaviour {
 	{
 
 		ValueManager VM_Script = GameObject.Find("ValueManager").GetComponent<ValueManager>();
-		LapManager LM_Script = GameObject.Find ("Track").GetComponent<LapManager> ();
 
-		LM_Script.NumofCheckpoints = 0;
-		for(int i = 0; i < LM_Script.CheckpointHit.Length; i++)
+		if(Application.loadedLevelName != "FuelLeak")
 		{
-			LM_Script.CheckpointHit[i] = false;
+			LapManager LM_Script = GameObject.Find ("Track").GetComponent<LapManager> ();
+			
+			LM_Script.NumofCheckpoints = 0;
+			for(int i = 0; i < LM_Script.CheckpointHit.Length; i++)
+			{
+				LM_Script.CheckpointHit[i] = false;
+			}
+
+			LM_Script.CongratsText.enabled = false;
+			VM_Script.ResetLapTimes();
 		}
+
+		if(Application.loadedLevelName == "FuelLeak")
+		{
+			FuelLeak FM_Script = GameObject.Find("FuelGauge").GetComponent<FuelLeak>();
+			FM_Script.ResetGame();
+		}
+	
 		VM_Script.EndRace();
-		VM_Script.ResetLapTimes();
+
 		StopCoroutine(VM_Script.TM_Script.StartCrash());
 		VM_Script.TM_Script.GameOverText.enabled = false;
 		VM_Script.TM_Script.bl_Crashed = false;
-		LM_Script.CongratsText.enabled = false;
+	
 
 
 	}

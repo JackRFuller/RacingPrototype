@@ -36,6 +36,9 @@ public class ValueManager : MonoBehaviour {
 	private bool bl_UpdateValues;
 	public bool GamePaused;
 
+	public GameObject CarBody;
+	public GameObject Mudguard1;
+	public GameObject Mudguard2;
 
 	// Use this for initialization
 	void Start () {
@@ -43,9 +46,16 @@ public class ValueManager : MonoBehaviour {
 		GamePaused = true;
 
 		CM_Script = GameObject.Find ("CarManager").GetComponent<CarManager> ();
+		CarBody.renderer.materials [1].color = CM_Script.Cars [CM_Script.SelectedCar].CarColor;
+		Mudguard1.renderer.materials[0].color = CM_Script.Cars [CM_Script.SelectedCar].CarColor;
+		Mudguard2.renderer.materials[0].color = CM_Script.Cars [CM_Script.SelectedCar].CarColor;
 
 		Car = GameObject.Find ("TestCar");
-		LM_Script = GameObject.Find ("Track").GetComponent<LapManager> ();
+		if(Application.loadedLevelName != "FuelLeak")
+		{
+			LM_Script = GameObject.Find ("Track").GetComponent<LapManager> ();
+		}
+
 		TM_Script = Car.GetComponent<TestMovements> ();
 		Car = GameObject.Find ("TestCar");
 		OriginalPos = Car.transform.position;
@@ -55,21 +65,11 @@ public class ValueManager : MonoBehaviour {
 
 		NIR_Script = GameObject.Find ("Main Camera").GetComponent<NewInputRegister> ();
 
-
-		TM_Script.Speed = PlayerPrefs.GetFloat(CM_Script.CarName + "Speed");
-		TM_Script.TurningSpeed = PlayerPrefs.GetFloat(CM_Script.CarName + "TurningSpeed");
-		NIR_Script.InputSensitivity = PlayerPrefs.GetFloat(CM_Script.CarName + "Input");
-
-		if(PlayerPrefs.GetFloat(CM_Script.CarName + "Mass") == 0)
-		{
-			Car.rigidbody.mass = 1;
-		}
-		else
-		{
-			Car.rigidbody.mass = PlayerPrefs.GetFloat(CM_Script.CarName + "Mass");
-		}
-
-		TM_Script.maxAngularDrag = PlayerPrefs.GetFloat(CM_Script.CarName + "AngularDrag");
+		TM_Script.Speed = PlayerPrefs.GetFloat(CM_Script.Cars[CM_Script.SelectedCar].CarName + "Speed");
+		TM_Script.TurningSpeed = PlayerPrefs.GetFloat(CM_Script.Cars[CM_Script.SelectedCar].CarName + "TurningSpeed");
+		NIR_Script.InputSensitivity = PlayerPrefs.GetFloat(CM_Script.Cars[CM_Script.SelectedCar].CarName + "Input");
+		Car.rigidbody.mass = PlayerPrefs.GetFloat(CM_Script.Cars[CM_Script.SelectedCar].CarName + "Mass");
+		TM_Script.maxAngularDrag = PlayerPrefs.GetFloat(CM_Script.Cars[CM_Script.SelectedCar].CarName + "AngularDrag");
 
 
 		SpeedSlider.value = TM_Script.Speed;
@@ -156,11 +156,11 @@ public class ValueManager : MonoBehaviour {
 
 	public void SaveValues()
 	{
-		PlayerPrefs.SetFloat (CM_Script.CarName + "Speed", TM_Script.Speed);
-		PlayerPrefs.SetFloat (CM_Script.CarName + "TurningSpeed", TM_Script.TurningSpeed);
-		PlayerPrefs.SetFloat (CM_Script.CarName + "Input", NIR_Script.InputSensitivity);
-		PlayerPrefs.SetFloat (CM_Script.CarName + "Mass", Car.rigidbody.mass);
-		PlayerPrefs.SetFloat (CM_Script.CarName + "AngularDrag", TM_Script.maxAngularDrag);
+		PlayerPrefs.SetFloat (CM_Script.Cars[CM_Script.SelectedCar].CarName + "Speed", TM_Script.Speed);
+		PlayerPrefs.SetFloat (CM_Script.Cars[CM_Script.SelectedCar].CarName + "TurningSpeed", TM_Script.TurningSpeed);
+		PlayerPrefs.SetFloat (CM_Script.Cars[CM_Script.SelectedCar].CarName + "Input", NIR_Script.InputSensitivity);
+		PlayerPrefs.SetFloat (CM_Script.Cars[CM_Script.SelectedCar].CarName + "Mass", Car.rigidbody.mass);
+		PlayerPrefs.SetFloat (CM_Script.Cars[CM_Script.SelectedCar].CarName + "AngularDrag", TM_Script.maxAngularDrag);
 	}
 
 	public void StartRace()
@@ -168,7 +168,11 @@ public class ValueManager : MonoBehaviour {
 		GamePaused = false;
 		Car.transform.rotation = OriginalRotation;
 		NIR_Script.in_Horizontal = 0;
-		LM_Script.CongratsText.enabled = false;
+		if(Application.loadedLevelName != "FuelLeak")
+		{
+			LM_Script.CongratsText.enabled = false;
+		}
+
 		TM_Script.GameOverText.enabled = false;
 		StopCoroutine(TM_Script.StartCrash());
 		TM_Script.bl_Crashed = false;
@@ -183,23 +187,31 @@ public class ValueManager : MonoBehaviour {
 		}
 
 		ValuesSet = true;
-		LM_Script.enabled = true;
-		LM_Script.Success = false;
+		if(Application.loadedLevelName != "FuelLeak")
+		{
+			LM_Script.enabled = true;
+			LM_Script.Success = false;
+		}
+
 	}
 
 	public void ResetLapTimes()
 	{
-
-		LM_Script.enabled = false;
-		LM_Script.bl_StartTimer = false;
-		LM_Script.fl_LapTimer = 0;
-		LM_Script.in_LapNumber = -1;
-		LM_Script.OverallTime = 0;
-		LM_Script.OverallTimer.text = "Current Time: 00:00";
-		foreach(Text Item in LM_Script.Laps)
+		if(Application.loadedLevelName != "FuelLeak")
 		{
-			Item.enabled = false;
+			LM_Script.enabled = false;
+			LM_Script.bl_StartTimer = false;
+			LM_Script.fl_LapTimer = 0;
+			LM_Script.in_LapNumber = -1;
+			LM_Script.OverallTime = 0;
+			LM_Script.OverallTimer.text = "Current Time: 00:00";
+			foreach(Text Item in LM_Script.Laps)
+			{
+				Item.enabled = false;
+			}
 		}
+
+
 
 	}
 

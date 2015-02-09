@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿	using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
 
@@ -39,14 +39,14 @@ public class MainMenuManager : MonoBehaviour {
 			ValueManager VM_Script = GameObject.Find("ValueManager").GetComponent<ValueManager>();
 			VM_Script.SaveValues();
 
-			Application.LoadLevel("GameModeMenu");
+			Application.LoadLevel("MainMenu");
 			Destroy(GameObject.Find("CarManager"));
 		}
 
 		if(gameObject.name == "No")
 		{
 			Debug.Log("No");
-			Application.LoadLevel("GameModeMenu");
+			Application.LoadLevel("MainMenu");
 			Destroy(GameObject.Find("CarManager"));
 		}
 
@@ -95,13 +95,28 @@ public class MainMenuManager : MonoBehaviour {
 
         if (gameObject.name == "PlayButton")
         {
-
-
+			if(Application.loadedLevelName != "FuelLeak")
+			{
 				ValueManager VM_Script = GameObject.Find("ValueManager").GetComponent<ValueManager>();
-
+				
 				VM_Script.StartRace();
 				gameObject.GetComponent<Image>().enabled = false;
 				gameObject.collider.enabled = false;
+			}
+			else
+			{
+				ValueManager VM_Script = GameObject.Find("ValueManager").GetComponent<ValueManager>();				
+				VM_Script.StartRace();
+				FuelLeak FM_Script = GameObject.Find("FuelGauge").GetComponent<FuelLeak>();
+				FM_Script.GameStarted = true;
+				gameObject.GetComponent<Image>().enabled = false;
+				gameObject.collider.enabled = false;
+
+				GameObject HomeButton = GameObject.Find ("HomeButton");
+				HomeButton.GetComponent<Image> ().enabled = false;
+				HomeButton.collider.enabled = false;
+			}
+				
 	
            
         }

@@ -28,7 +28,11 @@ public class TestMovements : MonoBehaviour {
 	void Start () {
 
 		VM_Script = GameObject.Find ("ValueManager").GetComponent<ValueManager> ();
-		LM_Script = GameObject.Find ("Track").GetComponent<LapManager> ();
+		if(Application.loadedLevelName != "FuelLeak")
+		{
+			LM_Script = GameObject.Find ("Track").GetComponent<LapManager> ();
+		}
+
 		NIR_Script = GameObject.Find("Main Camera").GetComponent<NewInputRegister>();
 		GameOverText = GameObject.Find("GameOver").GetComponent<Text>();
 
@@ -92,7 +96,6 @@ public class TestMovements : MonoBehaviour {
 			StopAllCoroutines();
 		}
 
-
 	}
 
 	void OnCollisionEnter(Collision col)
@@ -116,6 +119,10 @@ public class TestMovements : MonoBehaviour {
 		if(cc_Hit.gameObject.name  == "InnerTrack")
 		{
 			StartCoroutine(StartCrash());
+		}
+		if(cc_Hit.gameObject.name == "JerryCan")
+		{
+			GameObject.Find("FuelGauge").GetComponent<FuelLeak>().JerryCanUpdate();
 		}
 	}
 	void OnTriggerExit(Collider cc_Hit)
